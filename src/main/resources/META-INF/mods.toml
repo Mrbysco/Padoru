@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/mrbysco/padoru/issues"
 modId="padoru"
 version="${file.jarVersion}"
 displayName="Padoru Mod"
-#displayURL=""
+displayURL="https://www.curseforge.com/minecraft/mc-mods/padoru"
 authors="Mrbysco"
 description='''
 HASHIRE SORI YO
