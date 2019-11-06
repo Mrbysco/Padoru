@@ -1,0 +1,30 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+issueTrackerURL="https://github.com/mrbysco/padoru/issues"
+
+[[mods]]
+modId="padoru"
+version="${file.jarVersion}"
+displayName="Padoru Mod"
+#displayURL=""
+authors="Mrbysco"
+description='''
+HASHIRE SORI YO
+KAZE NO YOU NI
+TSUKIMIHARA WO
+PADORU PADORU
+'''
+
+[[dependencies.padoru]]
+modId="forge"
+mandatory=true
+versionRange="[28,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.padoru]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.14.4]"
+ordering="NONE"
+side="BOTH"
