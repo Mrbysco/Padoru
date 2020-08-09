@@ -39,6 +39,7 @@ public class Padoru {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
+        ModSpawns.entityAttributes();
         DeferredWorkQueue.runLater(ModSpawns::addSpawn);
     }
 }

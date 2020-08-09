@@ -4,6 +4,7 @@ import com.mrbysco.padoru.PadoruConfig;
 import com.mrbysco.padoru.entity.PadoruEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.BiomeDictionary;
@@ -18,5 +19,9 @@ public class ModSpawns {
             }
         }
         EntitySpawnPlacementRegistry.register(ModRegistry.PADORU.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, PadoruEntity::canSpawnOn);
+    }
+
+    public static void entityAttributes() {
+        GlobalEntityTypeAttributes.put(ModRegistry.PADORU.get(), PadoruEntity.registerAttributes().create());
     }
 }

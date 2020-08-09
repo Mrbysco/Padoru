@@ -3,7 +3,8 @@ package com.mrbysco.padoru.entity;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -61,11 +62,11 @@ public class PadoruEntity extends CreatureEntity {
         return ModRegistry.PADORU_DEATH.get();
     }
 
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(12.0D);
-        this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)0.25F);
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return PadoruEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 12.0D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, (double)0.25F);
     }
 
     public PlayerEntity getNearestPlayer(IWorld worldIn) {
