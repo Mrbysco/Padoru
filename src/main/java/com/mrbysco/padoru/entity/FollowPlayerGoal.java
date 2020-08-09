@@ -41,7 +41,7 @@ public class FollowPlayerGoal extends Goal {
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean shouldExecute() {
-        PlayerEntity nearestPlayer = this.padoru.getNearestPlayer();
+        PlayerEntity nearestPlayer = this.padoru.getNearestPlayer(this.padoru.world);
         if (nearestPlayer == null) {
             return false;
         } else if (nearestPlayer.isSpectator()) {
@@ -87,8 +87,8 @@ public class FollowPlayerGoal extends Goal {
             if (!this.navigator.tryMoveToEntityLiving(this.player, this.followSpeed)) {
                 if (!this.padoru.getLeashed() && !this.padoru.isPassenger()) {
                     if (!(this.padoru.getDistanceSq(this.player) < 144.0D)) {
-                        int i = MathHelper.floor(this.player.posX) - 2;
-                        int j = MathHelper.floor(this.player.posZ) - 2;
+                        int i = MathHelper.floor(this.player.getPosX()) - 2;
+                        int j = MathHelper.floor(this.player.getPosZ()) - 2;
                         int k = MathHelper.floor(this.player.getBoundingBox().minY);
 
                         for (int l = 0; l <= 4; ++l) {

@@ -1,7 +1,6 @@
 package com.mrbysco.padoru.entity;
 
-import com.mrbysco.padoru.init.EntityRegistry;
-import com.mrbysco.padoru.init.ModSounds;
+import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -15,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ public class PadoruEntity extends CreatureEntity {
 
     public PadoruEntity(World worldIn)
     {
-        super(EntityRegistry.PADORU, worldIn);
+        super(ModRegistry.PADORU.get(), worldIn);
     }
 
     @Override
@@ -53,12 +53,12 @@ public class PadoruEntity extends CreatureEntity {
     }
 
     @Nullable
-    public SoundEvent getAmbientSound() { return ModSounds.PADORU_AMBIENT; }
+    public SoundEvent getAmbientSound() { return ModRegistry.PADORU_AMBIENT.get(); }
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return ModSounds.PADORU_HURT;
+        return ModRegistry.PADORU_HURT.get();
     }
     protected SoundEvent getDeathSound() {
-        return ModSounds.PADORU_DEATH;
+        return ModRegistry.PADORU_DEATH.get();
     }
 
     protected void registerAttributes() {
@@ -68,9 +68,9 @@ public class PadoruEntity extends CreatureEntity {
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)0.25F);
     }
 
-    public PlayerEntity getNearestPlayer() {
-        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(posX, posY, posZ, posX + 1, posY + 1, posZ + 1)).grow(8);
-        List<PlayerEntity> list = world.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
+    public PlayerEntity getNearestPlayer(IWorld worldIn) {
+        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX() + 1, getPosY() + 1, getPosZ() + 1)).grow(8);
+        List<PlayerEntity> list = worldIn.getEntitiesWithinAABB(PlayerEntity.class, axisalignedbb);
         return !list.isEmpty() ? list.get(0) : null;
     }
 }

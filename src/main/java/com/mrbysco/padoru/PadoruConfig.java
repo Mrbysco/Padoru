@@ -44,7 +44,7 @@ public class PadoruConfig {
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.ConfigReloading configEvent) {
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
         Padoru.LOGGER.fatal("Padoru's config just got changed on the file system!");
     }
 }
