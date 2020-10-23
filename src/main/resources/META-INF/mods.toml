@@ -1,6 +1,7 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[34,)"
 issueTrackerURL="https://github.com/mrbysco/padoru/issues"
+license="MIT"
 
 [[mods]]
 modId="padoru"

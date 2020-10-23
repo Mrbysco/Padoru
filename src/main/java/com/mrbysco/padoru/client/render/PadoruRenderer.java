@@ -16,7 +16,7 @@ public class PadoruRenderer extends MobRenderer<PadoruEntity, PadoruModel<Padoru
     private static final ResourceLocation PADORU_TEXTURES = new ResourceLocation(Padoru.MOD_ID, "textures/entity/padoru.png");
 
     public PadoruRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new PadoruModel(), 0.25F);
+        super(renderManagerIn, new PadoruModel<>(), 0.25F);
     }
 
     @Nullable

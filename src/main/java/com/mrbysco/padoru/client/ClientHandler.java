@@ -5,7 +5,6 @@ import com.mrbysco.padoru.init.ModRegistry;
 import com.mrbysco.padoru.item.CustomSpawnEggItem;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
