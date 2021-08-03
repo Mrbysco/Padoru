@@ -67,14 +67,14 @@ public class PadoruModel<T extends PadoruEntity> extends EntityModel<T> {
         LeftArm.setTextureOffset(0, 45).addBox(0.0F, -10.0F, -1.0F, 5.0F, 2.0F, 2.0F, 0.0F, false);
 
         Skirt = new ModelRenderer(this);
-        Skirt.setRotationPoint(0.0F, 0.0F, 0.0F);
+        Skirt.setRotationPoint(-0.5F, -5.0F, 0.0F);
         Padoru.addChild(Skirt);
-        Skirt.setTextureOffset(38, 47).addBox(-4.0F, -11.0F, -3.0F, 7.0F, 3.0F, 6.0F, 0.0F, false);
-        Skirt.setTextureOffset(40, 13).addBox(-6.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, 0.0F, false);
-        Skirt.setTextureOffset(40, 0).addBox(3.0F, -5.0F, -5.0F, 2.0F, 3.0F, 10.0F, 0.0F, false);
-        Skirt.setTextureOffset(46, 26).addBox(-4.0F, -5.0F, 3.0F, 7.0F, 3.0F, 2.0F, 0.0F, false);
-        Skirt.setTextureOffset(46, 31).addBox(-4.0F, -5.0F, -5.0F, 7.0F, 3.0F, 2.0F, 0.0F, false);
-        Skirt.setTextureOffset(30, 36).addBox(-5.0F, -8.0F, -4.0F, 9.0F, 3.0F, 8.0F, 0.0F, false);
+        Skirt.setTextureOffset(38, 47).addBox(-3.5F, -6.0F, -3.0F, 7.0F, 3.0F, 6.0F, 0.0F, false);
+        Skirt.setTextureOffset(40, 13).addBox(-5.5F, 0.0F, -5.0F, 2.0F, 3.0F, 10.0F, 0.0F, false);
+        Skirt.setTextureOffset(40, 0).addBox(3.5F, 0.0F, -5.0F, 2.0F, 3.0F, 10.0F, 0.0F, false);
+        Skirt.setTextureOffset(46, 26).addBox(-3.5F, 0.0F, 3.0F, 7.0F, 3.0F, 2.0F, 0.0F, false);
+        Skirt.setTextureOffset(46, 31).addBox(-3.5F, 0.0F, -5.0F, 7.0F, 3.0F, 2.0F, 0.0F, false);
+        Skirt.setTextureOffset(30, 36).addBox(-4.5F, -3.0F, -4.0F, 9.0F, 3.0F, 8.0F, 0.0F, false);
 
         LeftFeet = new ModelRenderer(this);
         LeftFeet.setRotationPoint(0.0F, 0.0F, 0.0F);

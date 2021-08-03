@@ -25,7 +25,7 @@ public class ModRegistry {
     public static final RegistryObject<SoundEvent> PADORU_DEATH = SOUND_EVENTS.register("padoru.death", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.death")));
     public static final RegistryObject<SoundEvent> PADORU_HURT = SOUND_EVENTS.register("padoru.hurt", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.hurt")));
 
-    public static final RegistryObject<Item> MIMIC_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg" , () -> new CustomSpawnEggItem(() -> PADORU.get(), 12464433, 16640391, itemBuilder()));
+    public static final RegistryObject<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg" , () -> new CustomSpawnEggItem(() -> PADORU.get(), 12464433, 16640391, itemBuilder()));
 
     public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
         return builder.setTrackingRange(80).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build(id);

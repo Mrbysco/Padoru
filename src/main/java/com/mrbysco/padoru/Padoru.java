@@ -28,6 +28,8 @@ public class Padoru {
         ModRegistry.ITEMS.register(eventBus);
         ModRegistry.SOUND_EVENTS.register(eventBus);
 
+        eventBus.addListener(ModSpawns::registerEntityAttributes);
+
         eventBus.addListener(this::setup);
 
         DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
