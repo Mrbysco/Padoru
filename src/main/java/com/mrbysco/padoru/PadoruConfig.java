@@ -3,6 +3,7 @@ package com.mrbysco.padoru;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class PadoruConfig {
@@ -39,12 +40,12 @@ public class PadoruConfig {
     }
 
     @SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
         Padoru.LOGGER.debug("Loaded Padoru's config file {}", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
+    public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
         Padoru.LOGGER.fatal("Padoru's config just got changed on the file system!");
     }
 }
