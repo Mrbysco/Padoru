@@ -2,7 +2,6 @@ package com.mrbysco.padoru.init;
 
 import com.mrbysco.padoru.Padoru;
 import com.mrbysco.padoru.entity.PadoruEntity;
-import com.mrbysco.padoru.item.CustomSpawnEggItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,7 +25,7 @@ public class ModRegistry {
     public static final RegistryObject<SoundEvent> PADORU_DEATH = SOUND_EVENTS.register("padoru.death", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.death")));
     public static final RegistryObject<SoundEvent> PADORU_HURT = SOUND_EVENTS.register("padoru.hurt", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.hurt")));
 
-    public static final RegistryObject<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg" , () -> new CustomSpawnEggItem(() -> PADORU.get(), 12464433, 16640391, itemBuilder()));
+    public static final RegistryObject<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg" , () -> new ForgeSpawnEggItem(() -> PADORU.get(), 12464433, 16640391, itemBuilder()));
 
     public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
         return builder.setTrackingRange(80).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build(id);
