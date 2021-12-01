@@ -32,10 +32,7 @@ public class Padoru {
 
         eventBus.addListener(this::setup);
 
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            eventBus.addListener(ClientHandler::registerRenders);
-            eventBus.addListener(ClientHandler::registerItemColors);
-        });
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> eventBus.addListener(ClientHandler::registerRenders));
     }
 
     private void setup(final FMLCommonSetupEvent event) {

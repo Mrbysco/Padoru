@@ -26,13 +26,13 @@ public class FollowPlayerGoal extends Goal {
 
     public FollowPlayerGoal(PadoruEntity padoruIn, double followSpeedIn, float minDistIn, float maxDistIn) {
         this.padoru = padoruIn;
-        this.world = padoruIn.world;
+        this.world = padoruIn.level;
         this.followSpeed = followSpeedIn;
-        this.navigator = padoruIn.getNavigator();
+        this.navigator = padoruIn.getNavigation();
         this.minDist = minDistIn;
         this.maxDist = maxDistIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        if (!(padoruIn.getNavigator() instanceof GroundPathNavigator) && !(padoruIn.getNavigator() instanceof FlyingPathNavigator)) {
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        if (!(padoruIn.getNavigation() instanceof GroundPathNavigator) && !(padoruIn.getNavigation() instanceof FlyingPathNavigator)) {
             throw new IllegalArgumentException("Unsupported mob type for FollowplayerGoal");
         }
     }
@@ -40,8 +40,8 @@ public class FollowPlayerGoal extends Goal {
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    public boolean shouldExecute() {
-        PlayerEntity nearestPlayer = this.padoru.getNearestPlayer(this.padoru.world);
+    public boolean canUse() {
+        PlayerEntity nearestPlayer = this.padoru.getNearestPlayer(this.padoru.level);
         if (nearestPlayer == null) {
             return false;
         } else if (nearestPlayer.isSpectator()) {
@@ -55,47 +55,47 @@ public class FollowPlayerGoal extends Goal {
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
-    public boolean shouldContinueExecuting() {
-        return !this.navigator.noPath() && this.padoru.getDistanceSq(this.player) > (double) (this.maxDist * this.maxDist);
+    public boolean canContinueToUse() {
+        return !this.navigator.isDone() && this.padoru.distanceToSqr(this.player) > (double) (this.maxDist * this.maxDist);
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting() {
+    public void start() {
         this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.padoru.getPathPriority(PathNodeType.WATER);
-        this.padoru.setPathPriority(PathNodeType.WATER, 0.0F);
+        this.oldWaterCost = this.padoru.getPathfindingMalus(PathNodeType.WATER);
+        this.padoru.setPathfindingMalus(PathNodeType.WATER, 0.0F);
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask() {
+    public void stop() {
         this.player = null;
-        this.navigator.clearPath();
-        this.padoru.setPathPriority(PathNodeType.WATER, this.oldWaterCost);
+        this.navigator.stop();
+        this.padoru.setPathfindingMalus(PathNodeType.WATER, this.oldWaterCost);
     }
 
     /**
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
-        this.padoru.getLookController().setLookPositionWithEntity(this.player, 10.0F, (float) this.padoru.getVerticalFaceSpeed());
+        this.padoru.getLookControl().setLookAt(this.player, 10.0F, (float) this.padoru.getMaxHeadXRot());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = 10;
-            if (!this.navigator.tryMoveToEntityLiving(this.player, this.followSpeed)) {
-                if (!this.padoru.getLeashed() && !this.padoru.isPassenger()) {
-                    if (!(this.padoru.getDistanceSq(this.player) < 144.0D)) {
-                        int i = MathHelper.floor(this.player.getPosX()) - 2;
-                        int j = MathHelper.floor(this.player.getPosZ()) - 2;
+            if (!this.navigator.moveTo(this.player, this.followSpeed)) {
+                if (!this.padoru.isLeashed() && !this.padoru.isPassenger()) {
+                    if (!(this.padoru.distanceToSqr(this.player) < 144.0D)) {
+                        int i = MathHelper.floor(this.player.getX()) - 2;
+                        int j = MathHelper.floor(this.player.getZ()) - 2;
                         int k = MathHelper.floor(this.player.getBoundingBox().minY);
 
                         for (int l = 0; l <= 4; ++l) {
                             for (int i1 = 0; i1 <= 4; ++i1) {
                                 if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.canTeleportToBlock(new BlockPos(i + l, k - 1, j + i1))) {
-                                    this.padoru.setLocationAndAngles((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.padoru.rotationYaw, this.padoru.rotationPitch);
-                                    this.navigator.clearPath();
+                                    this.padoru.moveTo((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.padoru.yRot, this.padoru.xRot);
+                                    this.navigator.stop();
                                     return;
                                 }
                             }
@@ -109,6 +109,6 @@ public class FollowPlayerGoal extends Goal {
 
     protected boolean canTeleportToBlock(BlockPos pos) {
         BlockState blockstate = this.world.getBlockState(pos);
-        return blockstate.canEntitySpawn(this.world, pos, this.padoru.getType()) && this.world.isAirBlock(pos.up()) && this.world.isAirBlock(pos.up(2));
+        return blockstate.isValidSpawn(this.world, pos, this.padoru.getType()) && this.world.isEmptyBlock(pos.above()) && this.world.isEmptyBlock(pos.above(2));
     }
 }

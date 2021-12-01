@@ -21,7 +21,7 @@ public class PadoruRenderer extends MobRenderer<PadoruEntity, PadoruModel<Padoru
 
     @Nullable
     @Override
-    public ResourceLocation getEntityTexture(PadoruEntity entity) {
+    public ResourceLocation getTextureLocation(PadoruEntity entity) {
         return PADORU_TEXTURES;
     }
 }

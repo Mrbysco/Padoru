@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[36,)"
 issueTrackerURL="https://github.com/mrbysco/padoru/issues"
 license="MIT"
 
@@ -15,3 +15,15 @@ KAZE NO YOU NI
 TSUKIMIHARA WO
 PADORU PADORU
 '''
+[[dependencies.padoru]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5,1.17.1)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.padoru]]
+modId="forge"
+mandatory=true
+versionRange="[36.2.17,37)"
+ordering="NONE"
+side="BOTH"
