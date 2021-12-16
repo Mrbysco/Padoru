@@ -25,7 +25,7 @@ public class PadoruConfig {
 
             weight = builder
                     .comment("Spawn weight [Default: 2]")
-                    .defineInRange("minGroup", 2, 0, 100);
+                    .defineInRange("weight", 2, 0, 100);
             builder.pop();
         }
     }
