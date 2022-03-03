@@ -9,13 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
 public class ClientHandler {
-    public static final ModelLayerLocation PADORU = new ModelLayerLocation(new ResourceLocation(Padoru.MOD_ID, "padoru"), "padoru");
+	public static final ModelLayerLocation PADORU = new ModelLayerLocation(new ResourceLocation(Padoru.MOD_ID, "padoru"), "padoru");
 
-    public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModRegistry.PADORU.get(), PadoruRenderer::new);
-    }
+	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+		event.registerEntityRenderer(ModRegistry.PADORU.get(), PadoruRenderer::new);
+	}
 
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(PADORU, PadoruModel::createBodyLayer);
-    }
+	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(PADORU, PadoruModel::createBodyLayer);
+	}
 }

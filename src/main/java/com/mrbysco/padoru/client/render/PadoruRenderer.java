@@ -15,20 +15,20 @@ import javax.annotation.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class PadoruRenderer extends MobRenderer<PadoruEntity, PadoruModel<PadoruEntity>> {
-    private static final ResourceLocation PADORU_TEXTURES = new ResourceLocation(Padoru.MOD_ID, "textures/entity/padoru.png");
+	private static final ResourceLocation PADORU_TEXTURES = new ResourceLocation(Padoru.MOD_ID, "textures/entity/padoru.png");
 
-    public PadoruRenderer(Context context) {
-        super(context, new PadoruModel<>(context.bakeLayer(ClientHandler.PADORU)), 0.25F);
-    }
+	public PadoruRenderer(Context context) {
+		super(context, new PadoruModel<>(context.bakeLayer(ClientHandler.PADORU)), 0.25F);
+	}
 
-    @Override
-    public Vec3 getRenderOffset(PadoruEntity entity, float offset) {
-        return super.getRenderOffset(entity, offset).add(0, -1.5, 0);
-    }
+	@Override
+	public Vec3 getRenderOffset(PadoruEntity entity, float offset) {
+		return super.getRenderOffset(entity, offset).add(0, -1.5, 0);
+	}
 
-    @Nullable
-    @Override
-    public ResourceLocation getTextureLocation(PadoruEntity entity) {
-        return PADORU_TEXTURES;
-    }
+	@Nullable
+	@Override
+	public ResourceLocation getTextureLocation(PadoruEntity entity) {
+		return PADORU_TEXTURES;
+	}
 }
