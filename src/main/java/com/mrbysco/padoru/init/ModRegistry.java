@@ -16,10 +16,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Padoru.MOD_ID);
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Padoru.MOD_ID);
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Padoru.MOD_ID);
 	public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Padoru.MOD_ID);
 
-	public static final RegistryObject<EntityType<PadoruEntity>> PADORU = ENTITIES.register("nero_claudius", () -> register("nero_claudius", EntityType.Builder.<PadoruEntity>of(PadoruEntity::new, MobCategory.CREATURE).sized(0.5F, 1.0F)));
+	public static final RegistryObject<EntityType<PadoruEntity>> PADORU = ENTITY_TYPES.register("nero_claudius", () -> register("nero_claudius", EntityType.Builder.<PadoruEntity>of(PadoruEntity::new, MobCategory.CREATURE).sized(0.5F, 1.0F)));
 
 	public static final RegistryObject<SoundEvent> PADORU_AMBIENT = SOUND_EVENTS.register("padoru.ambient", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.ambient")));
 	public static final RegistryObject<SoundEvent> PADORU_DEATH = SOUND_EVENTS.register("padoru.death", () -> new SoundEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.death")));
