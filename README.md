@@ -1,3 +1,6 @@
+[![build](https://github.com/Mrbysco/Padoru/actions/workflows/build.yml/badge.svg)](https://github.com/Mrbysco/Padoru/actions/workflows/build.yml)
+[![](http://cf.way2muchnoise.eu/versions/350657.svg)](https://www.curseforge.com/minecraft/mc-mods/padoru)
+
 # Padoru #
 
 ## About ##
