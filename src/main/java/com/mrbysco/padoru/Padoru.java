@@ -1,21 +1,22 @@
 package com.mrbysco.padoru;
 
-import com.mojang.logging.LogUtils;
 import com.mrbysco.padoru.client.ClientHandler;
 import com.mrbysco.padoru.init.ModRegistry;
 import com.mrbysco.padoru.init.ModSpawns;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(Padoru.MOD_ID)
 public class Padoru {
 	public static final String MOD_ID = "padoru";
-	public static final Logger LOGGER = LogUtils.getLogger();
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	public Padoru() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -25,8 +26,8 @@ public class Padoru {
 		ModRegistry.SOUND_EVENTS.register(eventBus);
 
 		eventBus.addListener(ModSpawns::registerEntityAttributes);
-
-		eventBus.addListener(this::setup);
+		eventBus.addListener(ModSpawns::registerSpawnPlacements);
+		eventBus.addListener(this::addTabContents);
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
@@ -34,7 +35,9 @@ public class Padoru {
 		});
 	}
 
-	private void setup(final FMLCommonSetupEvent event) {
-		ModSpawns.entityAttributes();
+	private void addTabContents(final CreativeModeTabEvent.BuildContents event) {
+		if (event.getTab() == CreativeModeTabs.SPAWN_EGGS) {
+			event.accept(ModRegistry.PADORU_SPAWN_EGG);
+		}
 	}
 }
