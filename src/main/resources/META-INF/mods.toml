@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[45,)"
 issueTrackerURL="https://github.com/mrbysco/padoru/issues"
 license="MIT"
 
@@ -19,13 +19,6 @@ PADORU PADORU
 [[dependencies.padoru]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.19.3,1.20)"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.padoru]]
-modId="forge"
-mandatory=true
-versionRange="[44.1.0,)"
+versionRange="[1.19.4,1.20)"
 ordering="NONE"
 side="BOTH"
