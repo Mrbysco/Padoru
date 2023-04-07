@@ -29,6 +29,6 @@ public class ModRegistry {
 			SoundEvent.createVariableRangeEvent(new ResourceLocation(Padoru.MOD_ID, "padoru.hurt")));
 
 	public static final RegistryObject<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg", () ->
-			new ForgeSpawnEggItem(() -> PADORU.get(), 12464433, 16640391, (new Item.Properties())));
+			new ForgeSpawnEggItem(PADORU, 12464433, 16640391, (new Item.Properties())));
 
 }

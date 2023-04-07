@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 public class ModSpawns {
 
 	public static void registerEntityAttributes(SpawnPlacementRegisterEvent event) {
-		SpawnPlacements.register(ModRegistry.PADORU.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PadoruEntity::checkMobSpawnRules);
+		event.register(ModRegistry.PADORU.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, PadoruEntity::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 	}
 
 	public static void registerSpawnPlacements(EntityAttributeCreationEvent event) {

@@ -15,9 +15,17 @@ KAZE NO YOU NI
 TSUKIMIHARA WO
 PADORU PADORU
 '''
+
 [[dependencies.padoru]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.19.3,1.20)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.padoru]]
+modId="forge"
+mandatory=true
+versionRange="[44.1.0,)"
 ordering="NONE"
 side="BOTH"

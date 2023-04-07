@@ -15,7 +15,6 @@ public class PadoruModel<T extends PadoruEntity> extends HierarchicalModel<T> {
 	private final ModelPart head;
 	private final ModelPart rightArm;
 	private final ModelPart leftArm;
-	private final ModelPart skirt;
 	private final ModelPart rightLeg;
 	private final ModelPart leftLeg;
 
@@ -24,7 +23,6 @@ public class PadoruModel<T extends PadoruEntity> extends HierarchicalModel<T> {
 		this.head = part.getChild("head");
 		this.rightArm = part.getChild("right_arm");
 		this.leftArm = part.getChild("left_arm");
-		this.skirt = part.getChild("skirt");
 		this.rightLeg = part.getChild("right_leg");
 		this.leftLeg = part.getChild("left_leg");
 	}
