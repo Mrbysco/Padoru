@@ -12,14 +12,21 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.EntityLootSubProvider;
+import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.ValidationContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.Tags.Biomes;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -29,10 +36,14 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PadoruDataGen {
@@ -47,11 +58,11 @@ public class PadoruDataGen {
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
-
 		if (event.includeServer()) {
 			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
 					packOutput, CompletableFuture.supplyAsync(PadoruDataGen::getProvider), Set.of(Padoru.MOD_ID)));
 
+			generator.addProvider(event.includeServer(), new PadoruLoot(packOutput));
 			generator.addProvider(event.includeServer(), new ModBiomeTags(packOutput, lookupProvider, event.getExistingFileHelper()));
 		}
 	}
@@ -75,6 +86,35 @@ public class PadoruDataGen {
 
 	private static ResourceKey<BiomeModifier> createKey(String name) {
 		return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Padoru.MOD_ID, name));
+	}
+
+	private static class PadoruLoot extends LootTableProvider {
+		public PadoruLoot(PackOutput packOutput) {
+			super(packOutput, Set.of(), List.of(
+					new SubProviderEntry(HashireSoriYo::new, LootContextParamSets.ENTITY)
+			));
+		}
+
+		@Override
+		protected void validate(Map<ResourceLocation, LootTable> map, ValidationContext validationtracker) {
+			map.forEach((name, table) -> table.validate(validationtracker));
+		}
+
+		private static class HashireSoriYo extends EntityLootSubProvider {
+			protected HashireSoriYo() {
+				super(FeatureFlags.REGISTRY.allFlags());
+			}
+
+			@Override
+			public void generate() {
+				this.add(ModRegistry.PADORU.get(), LootTable.lootTable());
+			}
+
+			@Override
+			protected Stream<EntityType<?>> getKnownEntityTypes() {
+				return ModRegistry.ENTITY_TYPES.getEntries().stream().map(RegistryObject::get);
+			}
+		}
 	}
 
 	private static class ModBiomeTags extends BiomeTagsProvider {

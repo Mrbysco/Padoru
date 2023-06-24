@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
@@ -16,7 +16,7 @@ import java.util.EnumSet;
 public class FollowPlayerGoal extends Goal {
 	protected final PadoruEntity padoru;
 	private Player player;
-	protected final LevelReader world;
+	protected final LevelAccessor levelAccessor;
 	private final double followSpeed;
 	private final PathNavigation navigator;
 	private int timeToRecalcPath;
@@ -26,7 +26,7 @@ public class FollowPlayerGoal extends Goal {
 
 	public FollowPlayerGoal(PadoruEntity padoruIn, double followSpeedIn, float minDistIn, float maxDistIn) {
 		this.padoru = padoruIn;
-		this.world = padoruIn.level;
+		this.levelAccessor = padoruIn.level();
 		this.followSpeed = followSpeedIn;
 		this.navigator = padoruIn.getNavigation();
 		this.minDist = minDistIn;
@@ -41,7 +41,7 @@ public class FollowPlayerGoal extends Goal {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean canUse() {
-		Player nearestPlayer = this.padoru.getNearestPlayer(this.padoru.level);
+		Player nearestPlayer = this.padoru.getNearestPlayer(this.levelAccessor);
 		if (nearestPlayer == null) {
 			return false;
 		} else if (nearestPlayer.isSpectator()) {
@@ -108,7 +108,7 @@ public class FollowPlayerGoal extends Goal {
 	}
 
 	protected boolean canTeleportToBlock(BlockPos pos) {
-		BlockState blockstate = this.world.getBlockState(pos);
-		return blockstate.isValidSpawn(this.world, pos, this.padoru.getType()) && this.world.isEmptyBlock(pos.above()) && this.world.isEmptyBlock(pos.above(2));
+		BlockState blockstate = this.levelAccessor.getBlockState(pos);
+		return blockstate.isValidSpawn(this.levelAccessor, pos, this.padoru.getType()) && this.levelAccessor.isEmptyBlock(pos.above()) && this.levelAccessor.isEmptyBlock(pos.above(2));
 	}
 }

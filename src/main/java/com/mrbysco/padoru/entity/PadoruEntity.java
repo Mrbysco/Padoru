@@ -73,8 +73,8 @@ public class PadoruEntity extends PathfinderMob {
 	}
 
 	public Player getNearestPlayer(LevelAccessor worldIn) {
-		AABB axisalignedbb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(8);
-		List<Player> list = worldIn.getEntitiesOfClass(Player.class, axisalignedbb);
+		AABB aabb = (new AABB(getX(), getY(), getZ(), getX() + 1, getY() + 1, getZ() + 1)).inflate(8);
+		List<Player> list = worldIn.getEntitiesOfClass(Player.class, aabb);
 		return !list.isEmpty() ? list.get(0) : null;
 	}
 }
