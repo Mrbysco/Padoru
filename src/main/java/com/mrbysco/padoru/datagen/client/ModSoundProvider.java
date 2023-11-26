@@ -1,16 +1,16 @@
 package com.mrbysco.padoru.datagen.client;
 
-import com.mrbysco.padoru.Padoru;
+import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.SoundDefinitionsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider {
 
 	public ModSoundProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
-		super(packOutput, Padoru.MOD_ID, existingFileHelper);
+		super(packOutput, PadoruMod.MOD_ID, existingFileHelper);
 	}
 
 	@Override
@@ -37,10 +37,10 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
 
 
 	public String modSubtitle(ResourceLocation id) {
-		return Padoru.MOD_ID + ".subtitle." + id.getPath();
+		return PadoruMod.MOD_ID + ".subtitle." + id.getPath();
 	}
 
 	public ResourceLocation modLoc(String name) {
-		return new ResourceLocation(Padoru.MOD_ID, name);
+		return new ResourceLocation(PadoruMod.MOD_ID, name);
 	}
 }

@@ -10,11 +10,11 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class ModLootProvider extends LootTableProvider {
@@ -41,7 +41,7 @@ public class ModLootProvider extends LootTableProvider {
 
 		@Override
 		protected Stream<EntityType<?>> getKnownEntityTypes() {
-			return ModRegistry.ENTITY_TYPES.getEntries().stream().map(RegistryObject::get);
+			return ModRegistry.ENTITY_TYPES.getEntries().stream().map(Supplier::get);
 		}
 	}
 }

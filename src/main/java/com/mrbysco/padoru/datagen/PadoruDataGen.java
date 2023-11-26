@@ -2,7 +2,7 @@ package com.mrbysco.padoru.datagen;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-import com.mrbysco.padoru.Padoru;
+import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.datagen.client.ModLanguageProvider;
 import com.mrbysco.padoru.datagen.client.ModSoundProvider;
 import com.mrbysco.padoru.datagen.server.ModBiomeTags;
@@ -23,14 +23,14 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.common.world.ForgeBiomeModifiers;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.common.world.BiomeModifiers;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -49,7 +49,7 @@ public class PadoruDataGen {
 
 		if (event.includeServer()) {
 			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
-					packOutput, CompletableFuture.supplyAsync(PadoruDataGen::getProvider), Set.of(Padoru.MOD_ID)));
+					packOutput, CompletableFuture.supplyAsync(PadoruDataGen::getProvider), Set.of(PadoruMod.MOD_ID)));
 
 			generator.addProvider(event.includeServer(), new ModLootProvider(packOutput));
 			generator.addProvider(event.includeServer(), new ModBiomeTags(packOutput, lookupProvider, event.getExistingFileHelper()));
@@ -62,9 +62,9 @@ public class PadoruDataGen {
 
 	private static HolderLookup.Provider getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
-		registryBuilder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+		registryBuilder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			final HolderGetter<Biome> biomeHolderGetter = context.lookup(Registries.BIOME);
-			final BiomeModifier addSpawn = ForgeBiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
+			final BiomeModifier addSpawn = BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
 					biomeHolderGetter.getOrThrow(ModTags.CAN_SPAWN_NERO_CLAUDIUS),
 					new SpawnerData(ModRegistry.PADORU.get(), 2, 1, 4));
 
@@ -78,6 +78,6 @@ public class PadoruDataGen {
 	}
 
 	private static ResourceKey<BiomeModifier> createKey(String name) {
-		return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(Padoru.MOD_ID, name));
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(PadoruMod.MOD_ID, name));
 	}
 }
