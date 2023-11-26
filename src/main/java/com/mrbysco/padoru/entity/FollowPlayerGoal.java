@@ -7,16 +7,15 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 
 import java.util.EnumSet;
 
 public class FollowPlayerGoal extends Goal {
-	protected final PadoruEntity padoru;
+	protected final Padoru padoru;
 	private Player player;
-	protected final LevelAccessor levelAccessor;
 	private final double followSpeed;
 	private final PathNavigation navigator;
 	private int timeToRecalcPath;
@@ -24,15 +23,14 @@ public class FollowPlayerGoal extends Goal {
 	private final float minDist;
 	private float oldWaterCost;
 
-	public FollowPlayerGoal(PadoruEntity padoruIn, double followSpeedIn, float minDistIn, float maxDistIn) {
-		this.padoru = padoruIn;
-		this.levelAccessor = padoruIn.level();
+	public FollowPlayerGoal(Padoru padoru, double followSpeedIn, float minDistIn, float maxDistIn) {
+		this.padoru = padoru;
 		this.followSpeed = followSpeedIn;
-		this.navigator = padoruIn.getNavigation();
+		this.navigator = padoru.getNavigation();
 		this.minDist = minDistIn;
 		this.maxDist = maxDistIn;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-		if (!(padoruIn.getNavigation() instanceof GroundPathNavigation) && !(padoruIn.getNavigation() instanceof FlyingPathNavigation)) {
+		if (!(padoru.getNavigation() instanceof GroundPathNavigation) && !(padoru.getNavigation() instanceof FlyingPathNavigation)) {
 			throw new IllegalArgumentException("Unsupported mob type for FollowplayerGoal");
 		}
 	}
@@ -41,7 +39,7 @@ public class FollowPlayerGoal extends Goal {
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	public boolean canUse() {
-		Player nearestPlayer = this.padoru.getNearestPlayer(this.levelAccessor);
+		Player nearestPlayer = this.padoru.getNearestPlayer();
 		if (nearestPlayer == null) {
 			return false;
 		} else if (nearestPlayer.isSpectator()) {
@@ -108,7 +106,8 @@ public class FollowPlayerGoal extends Goal {
 	}
 
 	protected boolean canTeleportToBlock(BlockPos pos) {
-		BlockState blockstate = this.levelAccessor.getBlockState(pos);
-		return blockstate.isValidSpawn(this.levelAccessor, pos, this.padoru.getType()) && this.levelAccessor.isEmptyBlock(pos.above()) && this.levelAccessor.isEmptyBlock(pos.above(2));
+		Level level = this.padoru.level();
+		BlockState blockstate = level.getBlockState(pos);
+		return blockstate.isValidSpawn(level, pos, this.padoru.getType()) && level.isEmptyBlock(pos.above()) && level.isEmptyBlock(pos.above(2));
 	}
 }

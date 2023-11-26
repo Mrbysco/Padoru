@@ -1,0 +1,30 @@
+{
+  "padoru.ambient": {
+    "sounds": [
+      "padoru:ambient_full",
+      "padoru:ambient1",
+      "padoru:ambient2",
+      "padoru:ambient3",
+      "padoru:padoru_padoru"
+    ],
+    "subtitle": "padoru.subtitle.padoru.ambient"
+  },
+  "padoru.death": {
+    "sounds": [
+      "padoru:padoru_padoru"
+    ],
+    "subtitle": "padoru.subtitle.padoru.death"
+  },
+  "padoru.hurt": {
+    "sounds": [
+      "padoru:padoru"
+    ],
+    "subtitle": "padoru.subtitle.padoru.hurt"
+  },
+  "padoru.spawn": {
+    "sounds": [
+      "padoru:ambient_full"
+    ],
+    "subtitle": "padoru.subtitle.padoru.spawn"
+  }
+}
