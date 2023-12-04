@@ -1,5 +1,6 @@
 package com.mrbysco.padoru.entity;
 
+import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -68,6 +69,7 @@ public class Padoru extends PathfinderMob {
 
 	@Nullable
 	public SoundEvent getAmbientSound() {
+		if (getPose() == Pose.EMERGING) return null;
 		return ModRegistry.PADORU_AMBIENT.get();
 	}
 
@@ -118,6 +120,9 @@ public class Padoru extends PathfinderMob {
 		super.tick();
 		if (this.spinAnimationState.isStarted() && this.spinAnimationState.getAccumulatedTime() > 9000L) {
 			this.spinAnimationState.stop();
+			if (getPose() == Pose.EMERGING) {
+				this.setPose(Pose.STANDING);
+			}
 		}
 	}
 
