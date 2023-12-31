@@ -38,12 +38,12 @@ public class Padoru extends PathfinderMob {
 
 	public AnimationState spinAnimationState = new AnimationState();
 
-	public Padoru(EntityType<? extends Padoru> type, Level worldIn) {
-		super(type, worldIn);
+	public Padoru(EntityType<? extends Padoru> type, Level level) {
+		super(type, level);
 	}
 
-	public Padoru(Level worldIn) {
-		super(ModRegistry.PADORU.get(), worldIn);
+	public Padoru(Level level) {
+		super(ModRegistry.PADORU.get(), level);
 	}
 
 	@Override

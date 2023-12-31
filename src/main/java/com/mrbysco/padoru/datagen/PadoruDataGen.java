@@ -1,7 +1,5 @@
 package com.mrbysco.padoru.datagen;
 
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
 import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.datagen.client.ModLanguageProvider;
 import com.mrbysco.padoru.datagen.client.ModSoundProvider;
@@ -9,6 +7,7 @@ import com.mrbysco.padoru.datagen.server.ModBiomeTags;
 import com.mrbysco.padoru.datagen.server.ModLootProvider;
 import com.mrbysco.padoru.init.ModRegistry;
 import com.mrbysco.padoru.init.ModTags;
+import net.minecraft.core.Cloner;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
@@ -18,7 +17,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -40,8 +38,6 @@ public class PadoruDataGen {
 
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
-		HolderLookup.Provider provider = getProvider();
-		final RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, provider);
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
@@ -60,7 +56,7 @@ public class PadoruDataGen {
 		}
 	}
 
-	private static HolderLookup.Provider getProvider() {
+	private static RegistrySetBuilder.PatchedRegistries getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
 		registryBuilder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			final HolderGetter<Biome> biomeHolderGetter = context.lookup(Registries.BIOME);
@@ -74,7 +70,9 @@ public class PadoruDataGen {
 		registryBuilder.add(Registries.BIOME, $ -> {
 		});
 		RegistryAccess.Frozen regAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
-		return registryBuilder.buildPatch(regAccess, VanillaRegistries.createLookup());
+		Cloner.Factory cloner$factory = new Cloner.Factory();
+		net.neoforged.neoforge.registries.DataPackRegistriesHooks.getDataPackRegistriesWithDimensions().forEach(data -> data.runWithArguments(cloner$factory::addCodec));
+		return registryBuilder.buildPatch(regAccess, VanillaRegistries.createLookup(), cloner$factory);
 	}
 
 	private static ResourceKey<BiomeModifier> createKey(String name) {

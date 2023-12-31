@@ -6,7 +6,6 @@ import com.mrbysco.padoru.init.ModSpawns;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import org.apache.logging.log4j.LogManager;
@@ -17,9 +16,7 @@ public class PadoruMod {
 	public static final String MOD_ID = "padoru";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	public PadoruMod() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+	public PadoruMod(IEventBus eventBus) {
 		ModRegistry.ENTITY_TYPES.register(eventBus);
 		ModRegistry.ITEMS.register(eventBus);
 		ModRegistry.SOUND_EVENTS.register(eventBus);
