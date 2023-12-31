@@ -1,6 +1,5 @@
 package com.mrbysco.padoru.entity;
 
-import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
