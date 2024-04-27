@@ -127,11 +127,11 @@ public class Padoru extends PathfinderMob {
 
 	@Nullable
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData groupData, @Nullable CompoundTag tag) {
+										MobSpawnType spawnType, @Nullable SpawnGroupData groupData) {
 		this.setPose(Pose.EMERGING);
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) 100.0F);
 		this.playSound(ModRegistry.PADORU_SPAWN.get(), 1.0F, 1.0F);
 
-		return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData, tag);
+		return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData);
 	}
 }

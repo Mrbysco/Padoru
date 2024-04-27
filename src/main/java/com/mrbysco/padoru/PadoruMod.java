@@ -4,7 +4,9 @@ import com.mrbysco.padoru.client.ClientHandler;
 import com.mrbysco.padoru.init.ModRegistry;
 import com.mrbysco.padoru.init.ModSpawns;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -16,7 +18,7 @@ public class PadoruMod {
 	public static final String MOD_ID = "padoru";
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	public PadoruMod(IEventBus eventBus) {
+	public PadoruMod(IEventBus eventBus, Dist dist, ModContainer container) {
 		ModRegistry.ENTITY_TYPES.register(eventBus);
 		ModRegistry.ITEMS.register(eventBus);
 		ModRegistry.SOUND_EVENTS.register(eventBus);
@@ -25,7 +27,7 @@ public class PadoruMod {
 		eventBus.addListener(ModSpawns::registerSpawnPlacements);
 		eventBus.addListener(this::addTabContents);
 
-		if (FMLEnvironment.dist.isClient()) {
+		if (dist.isClient()) {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
 		}
