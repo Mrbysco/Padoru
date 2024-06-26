@@ -24,13 +24,13 @@ public class ModRegistry {
 					.sized(0.5F, 1.0F).clientTrackingRange(10).build("nero_claudius"));
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_SPAWN = SOUND_EVENTS.register("padoru.spawn", () ->
-			SoundEvent.createVariableRangeEvent(new ResourceLocation(PadoruMod.MOD_ID, "padoru.spawn")));
+			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.spawn")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_AMBIENT = SOUND_EVENTS.register("padoru.ambient", () ->
-			SoundEvent.createVariableRangeEvent(new ResourceLocation(PadoruMod.MOD_ID, "padoru.ambient")));
+			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.ambient")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_DEATH = SOUND_EVENTS.register("padoru.death", () ->
-			SoundEvent.createVariableRangeEvent(new ResourceLocation(PadoruMod.MOD_ID, "padoru.death")));
+			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.death")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_HURT = SOUND_EVENTS.register("padoru.hurt", () ->
-			SoundEvent.createVariableRangeEvent(new ResourceLocation(PadoruMod.MOD_ID, "padoru.hurt")));
+			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.hurt")));
 
 	public static final Supplier<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg", () ->
 			new DeferredSpawnEggItem(PADORU, 12464433, 16640391, (new Item.Properties())));

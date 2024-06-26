@@ -41,6 +41,6 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public ResourceLocation modLoc(String name) {
-		return new ResourceLocation(PadoruMod.MOD_ID, name);
+		return ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, name);
 	}
 }

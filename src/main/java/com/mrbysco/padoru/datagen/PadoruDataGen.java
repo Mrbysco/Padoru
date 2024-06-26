@@ -76,6 +76,6 @@ public class PadoruDataGen {
 	}
 
 	private static ResourceKey<BiomeModifier> createKey(String name) {
-		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(PadoruMod.MOD_ID, name));
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, name));
 	}
 }

@@ -1,11 +1,11 @@
 package com.mrbysco.padoru.entity;
 
 import com.mrbysco.padoru.init.ModRegistry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Unit;
 import net.minecraft.world.DifficultyInstance;
@@ -103,8 +103,8 @@ public class Padoru extends PathfinderMob {
 		super.onSyncedDataUpdated(dataAccessor);
 	}
 
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this, this.hasPose(Pose.EMERGING) ? 1 : 0);
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
+		return new ClientboundAddEntityPacket(this, entity, this.hasPose(Pose.EMERGING) ? 1 : 0);
 	}
 
 	public void recreateFromPacket(ClientboundAddEntityPacket clientboundAddEntityPacket) {

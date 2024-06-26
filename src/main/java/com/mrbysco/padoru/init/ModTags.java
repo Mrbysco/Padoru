@@ -7,5 +7,5 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class ModTags {
-	public static final TagKey<Biome> CAN_SPAWN_NERO_CLAUDIUS = TagKey.create(Registries.BIOME, new ResourceLocation(PadoruMod.MOD_ID, "can_spawn_nero_claudius"));
+	public static final TagKey<Biome> CAN_SPAWN_NERO_CLAUDIUS = TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "can_spawn_nero_claudius"));
 }

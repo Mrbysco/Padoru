@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 public class ClientHandler {
-	public static final ModelLayerLocation PADORU = new ModelLayerLocation(new ResourceLocation(PadoruMod.MOD_ID, "padoru"), "padoru");
+	public static final ModelLayerLocation PADORU = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru"), "padoru");
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(ModRegistry.PADORU.get(), PadoruRenderer::new);

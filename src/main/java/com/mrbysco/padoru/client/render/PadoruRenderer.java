@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class PadoruRenderer extends MobRenderer<Padoru, PadoruModel<Padoru>> {
-	private static final ResourceLocation PADORU_TEXTURES = new ResourceLocation(PadoruMod.MOD_ID, "textures/entity/padoru.png");
+	private static final ResourceLocation PADORU_TEXTURES = ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "textures/entity/padoru.png");
 
 	public PadoruRenderer(Context context) {
 		super(context, new PadoruModel<>(context.bakeLayer(ClientHandler.PADORU)), 0.25F);
