@@ -1,1 +1,1 @@
-* Initial update to 1.21
+* Update support for NeoForge **21.0.75-beta** and above (Which is now the minimum required version)
