@@ -1,6 +1,7 @@
 package com.mrbysco.padoru.client.model;
 
 import com.mrbysco.padoru.client.state.PadoruRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -16,6 +17,7 @@ public class PadoruModel extends EntityModel<PadoruRenderState> {
 	private final ModelPart leftArm;
 	private final ModelPart rightLeg;
 	private final ModelPart leftLeg;
+	private final KeyframeAnimation spinAnimation;
 
 	public PadoruModel(ModelPart part) {
 		super(part);
@@ -25,6 +27,7 @@ public class PadoruModel extends EntityModel<PadoruRenderState> {
 		this.leftArm = root.getChild("left_arm");
 		this.rightLeg = root.getChild("right_leg");
 		this.leftLeg = root.getChild("left_leg");
+		this.spinAnimation = PadoruAnimation.PADORU_SPIN.bake(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -68,7 +71,7 @@ public class PadoruModel extends EntityModel<PadoruRenderState> {
 		super.setupAnim(renderState);
 		this.animateHeadLookTarget(renderState.yRot, renderState.xRot);
 		this.animateWalk(renderState.walkAnimationPos, renderState.walkAnimationSpeed);
-		this.animate(renderState.spinAnimationState, PadoruAnimation.PADORU_SPIN, renderState.ageInTicks);
+		this.spinAnimation.apply(renderState.spinAnimationState, renderState.ageInTicks);
 	}
 
 	private void animateHeadLookTarget(float headPitch, float netHeadYaw) {
