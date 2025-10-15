@@ -38,6 +38,6 @@ public class ModRegistry {
 			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.hurt")));
 
 	public static final Supplier<Item> PADORU_SPAWN_EGG = ITEMS.registerItem("nero_claudius_spawn_egg", (properties) ->
-			new SpawnEggItem(PADORU.get(), properties));
+			new SpawnEggItem(properties.spawnEgg(PADORU.get())));
 
 }
