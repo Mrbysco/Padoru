@@ -8,7 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -16,12 +16,17 @@ import java.util.function.Supplier;
 
 public class ModRegistry {
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(PadoruMod.MOD_ID);
-	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, PadoruMod.MOD_ID);
+	public static final DeferredRegister.Entities ENTITIES = DeferredRegister.createEntities(PadoruMod.MOD_ID);
 	public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, PadoruMod.MOD_ID);
 
-	public static final Supplier<EntityType<Padoru>> PADORU = ENTITY_TYPES.register("nero_claudius", () ->
-			EntityType.Builder.<Padoru>of(Padoru::new, MobCategory.CREATURE)
-					.sized(0.5F, 1.0F).clientTrackingRange(10).build("nero_claudius"));
+	public static final Supplier<EntityType<Padoru>> PADORU = ENTITIES.registerEntityType("nero_claudius",
+			Padoru::new,
+			MobCategory.CREATURE,
+			builder -> builder
+					.sized(0.5F, 1.0F)
+					.eyeHeight(0.9F)
+					.clientTrackingRange(10)
+	);
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_SPAWN = SOUND_EVENTS.register("padoru.spawn", () ->
 			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.spawn")));
@@ -32,7 +37,7 @@ public class ModRegistry {
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_HURT = SOUND_EVENTS.register("padoru.hurt", () ->
 			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.hurt")));
 
-	public static final Supplier<Item> PADORU_SPAWN_EGG = ITEMS.register("nero_claudius_spawn_egg", () ->
-			new DeferredSpawnEggItem(PADORU, 12464433, 16640391, (new Item.Properties())));
+	public static final Supplier<Item> PADORU_SPAWN_EGG = ITEMS.registerItem("nero_claudius_spawn_egg", (properties) ->
+			new SpawnEggItem(PADORU.get(), properties));
 
 }

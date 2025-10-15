@@ -4,13 +4,12 @@ import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider {
 
-	public ModSoundProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
-		super(packOutput, PadoruMod.MOD_ID, existingFileHelper);
+	public ModSoundProvider(PackOutput packOutput) {
+		super(packOutput, PadoruMod.MOD_ID);
 	}
 
 	@Override

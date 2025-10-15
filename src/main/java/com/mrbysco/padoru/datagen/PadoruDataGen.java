@@ -2,6 +2,7 @@ package com.mrbysco.padoru.datagen;
 
 import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.datagen.client.ModLanguageProvider;
+import com.mrbysco.padoru.datagen.client.ModModelProvider;
 import com.mrbysco.padoru.datagen.client.ModSoundProvider;
 import com.mrbysco.padoru.datagen.server.ModBiomeTags;
 import com.mrbysco.padoru.datagen.server.ModLootProvider;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -37,23 +37,21 @@ import java.util.concurrent.CompletableFuture;
 public class PadoruDataGen {
 
 	@SubscribeEvent
-	public static void gatherData(GatherDataEvent event) {
+	public static void gatherData(GatherDataEvent.Client event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		ExistingFileHelper helper = event.getExistingFileHelper();
 
-		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
-					packOutput, CompletableFuture.supplyAsync(PadoruDataGen::getProvider), Set.of(PadoruMod.MOD_ID)));
+		generator.addProvider(true, new DatapackBuiltinEntriesProvider(
+				packOutput, CompletableFuture.supplyAsync(PadoruDataGen::getProvider), Set.of(PadoruMod.MOD_ID)));
 
-			generator.addProvider(event.includeServer(), new ModLootProvider(packOutput, lookupProvider));
-			generator.addProvider(event.includeServer(), new ModBiomeTags(packOutput, lookupProvider, event.getExistingFileHelper()));
-		}
-		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new ModLanguageProvider(packOutput));
-			generator.addProvider(event.includeClient(), new ModSoundProvider(packOutput, helper));
-		}
+		generator.addProvider(true, new ModLootProvider(packOutput, lookupProvider));
+		generator.addProvider(true, new ModBiomeTags(packOutput, lookupProvider));
+
+		generator.addProvider(true, new ModLanguageProvider(packOutput));
+		generator.addProvider(true, new ModModelProvider(packOutput));
+		generator.addProvider(true, new ModSoundProvider(packOutput));
+
 	}
 
 	private static RegistrySetBuilder.PatchedRegistries getProvider() {

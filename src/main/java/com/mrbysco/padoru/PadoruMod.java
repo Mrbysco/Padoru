@@ -18,7 +18,7 @@ public class PadoruMod {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public PadoruMod(IEventBus eventBus, Dist dist, ModContainer container) {
-		ModRegistry.ENTITY_TYPES.register(eventBus);
+		ModRegistry.ENTITIES.register(eventBus);
 		ModRegistry.ITEMS.register(eventBus);
 		ModRegistry.SOUND_EVENTS.register(eventBus);
 

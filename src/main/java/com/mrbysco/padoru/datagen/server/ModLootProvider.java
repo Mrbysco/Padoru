@@ -43,7 +43,7 @@ public class ModLootProvider extends LootTableProvider {
 
 		@Override
 		protected Stream<EntityType<?>> getKnownEntityTypes() {
-			return ModRegistry.ENTITY_TYPES.getEntries().stream().map(Supplier::get);
+			return ModRegistry.ENTITIES.getEntries().stream().map(Supplier::get);
 		}
 	}
 }

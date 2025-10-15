@@ -11,8 +11,8 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -117,7 +117,7 @@ public class Padoru extends PathfinderMob {
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.spinAnimationState.isStarted() && this.spinAnimationState.getAccumulatedTime() > 9000L) {
+		if (this.spinAnimationState.isStarted() && this.spinAnimationState.getTimeInMillis(this.tickCount) > 9000L) {
 			this.spinAnimationState.stop();
 			if (getPose() == Pose.EMERGING) {
 				this.setPose(Pose.STANDING);
@@ -127,11 +127,12 @@ public class Padoru extends PathfinderMob {
 
 	@Nullable
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance,
-										MobSpawnType spawnType, @Nullable SpawnGroupData groupData) {
+	                                    EntitySpawnReason spawnReason, @Nullable SpawnGroupData groupData) {
+		SpawnGroupData data = super.finalizeSpawn(levelAccessor, difficultyInstance, spawnReason, groupData);
 		this.setPose(Pose.EMERGING);
 		this.getBrain().setMemoryWithExpiry(MemoryModuleType.IS_EMERGING, Unit.INSTANCE, (long) 100.0F);
 		this.playSound(ModRegistry.PADORU_SPAWN.get(), 1.0F, 1.0F);
 
-		return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, groupData);
+		return data;
 	}
 }

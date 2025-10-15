@@ -1,7 +1,7 @@
 package com.mrbysco.padoru.client.model;
 
-import com.mrbysco.padoru.entity.Padoru;
-import net.minecraft.client.model.HierarchicalModel;
+import com.mrbysco.padoru.client.state.PadoruRenderState;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -10,8 +10,7 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
-public class PadoruModel<T extends Padoru> extends HierarchicalModel<T> {
-	private final ModelPart root;
+public class PadoruModel extends EntityModel<PadoruRenderState> {
 	private final ModelPart head;
 	private final ModelPart rightArm;
 	private final ModelPart leftArm;
@@ -19,12 +18,13 @@ public class PadoruModel<T extends Padoru> extends HierarchicalModel<T> {
 	private final ModelPart leftLeg;
 
 	public PadoruModel(ModelPart part) {
-		this.root = part.getChild("root");
-		this.head = this.root.getChild("head");
-		this.rightArm = this.root.getChild("right_arm");
-		this.leftArm = this.root.getChild("left_arm");
-		this.rightLeg = this.root.getChild("right_leg");
-		this.leftLeg = this.root.getChild("left_leg");
+		super(part);
+		ModelPart root = part.getChild("root");
+		this.head = root.getChild("head");
+		this.rightArm = root.getChild("right_arm");
+		this.leftArm = root.getChild("left_arm");
+		this.rightLeg = root.getChild("right_leg");
+		this.leftLeg = root.getChild("left_leg");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -64,11 +64,11 @@ public class PadoruModel<T extends Padoru> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animateHeadLookTarget(headPitch, netHeadYaw);
-		this.animateWalk(limbSwing, limbSwingAmount);
-		this.animate(entity.spinAnimationState, PadoruAnimation.PADORU_SPIN, ageInTicks);
+	public void setupAnim(PadoruRenderState renderState) {
+		super.setupAnim(renderState);
+		this.animateHeadLookTarget(renderState.yRot, renderState.xRot);
+		this.animateWalk(renderState.walkAnimationPos, renderState.walkAnimationSpeed);
+		this.animate(renderState.spinAnimationState, PadoruAnimation.PADORU_SPIN, renderState.ageInTicks);
 	}
 
 	private void animateHeadLookTarget(float headPitch, float netHeadYaw) {
@@ -84,9 +84,5 @@ public class PadoruModel<T extends Padoru> extends HierarchicalModel<T> {
 		this.leftLeg.yRot = 0.0F;
 		this.rightLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
 		this.rightLeg.yRot = 0.0F;
-	}
-
-	public ModelPart root() {
-		return this.root;
 	}
 }
