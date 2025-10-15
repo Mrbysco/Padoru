@@ -92,7 +92,7 @@ public class FollowPlayerGoal extends Goal {
 						for (int l = 0; l <= 4; ++l) {
 							for (int i1 = 0; i1 <= 4; ++i1) {
 								if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.canTeleportToBlock(new BlockPos(i + l, k - 1, j + i1))) {
-									this.padoru.moveTo((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.padoru.getYRot(), this.padoru.getXRot());
+									this.padoru.snapTo((double) ((float) (i + l) + 0.5F), (double) k, (double) ((float) (j + i1) + 0.5F), this.padoru.getYRot(), this.padoru.getXRot());
 									this.navigator.stop();
 									return;
 								}

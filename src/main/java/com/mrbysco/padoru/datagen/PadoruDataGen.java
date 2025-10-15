@@ -20,7 +20,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -60,7 +62,7 @@ public class PadoruDataGen {
 			final HolderGetter<Biome> biomeHolderGetter = context.lookup(Registries.BIOME);
 			final BiomeModifier addSpawn = BiomeModifiers.AddSpawnsBiomeModifier.singleSpawn(
 					biomeHolderGetter.getOrThrow(ModTags.CAN_SPAWN_NERO_CLAUDIUS),
-					new SpawnerData(ModRegistry.PADORU.get(), 2, 1, 4));
+					new Weighted<>(new MobSpawnSettings.SpawnerData(ModRegistry.PADORU.get(), 1, 4), 2));
 
 			context.register(createKey("add_padoru_spawn"), addSpawn);
 		});

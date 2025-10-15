@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -4312783
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -136825
-      }
-    ]
+    "model": "padoru:item/nero_claudius_spawn_egg"
   }
 }
