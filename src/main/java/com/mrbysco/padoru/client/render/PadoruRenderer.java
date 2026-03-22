@@ -7,12 +7,12 @@ import com.mrbysco.padoru.client.state.PadoruRenderState;
 import com.mrbysco.padoru.entity.Padoru;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class PadoruRenderer extends MobRenderer<Padoru, PadoruRenderState, PadoruModel> {
-	private static final ResourceLocation PADORU_TEXTURES = ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "textures/entity/padoru.png");
+	private static final Identifier PADORU_TEXTURES = PadoruMod.modLoc("textures/entity/padoru.png");
 
 	public PadoruRenderer(Context context) {
 		super(context, new PadoruModel(context.bakeLayer(ClientHandler.PADORU)), 0.25F);
@@ -36,7 +36,7 @@ public class PadoruRenderer extends MobRenderer<Padoru, PadoruRenderState, Pador
 
 	@NotNull
 	@Override
-	public ResourceLocation getTextureLocation(PadoruRenderState renderState) {
+	public Identifier getTextureLocation(PadoruRenderState renderState) {
 		return PADORU_TEXTURES;
 	}
 }

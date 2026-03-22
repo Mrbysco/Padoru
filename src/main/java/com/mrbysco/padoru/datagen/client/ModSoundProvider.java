@@ -3,7 +3,7 @@ package com.mrbysco.padoru.datagen.client;
 import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.init.ModRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider {
@@ -35,11 +35,11 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
 	}
 
 
-	public String modSubtitle(ResourceLocation id) {
+	public String modSubtitle(Identifier id) {
 		return PadoruMod.MOD_ID + ".subtitle." + id.getPath();
 	}
 
-	public ResourceLocation modLoc(String name) {
-		return ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, name);
+	public Identifier modLoc(String name) {
+		return PadoruMod.modLoc(name);
 	}
 }

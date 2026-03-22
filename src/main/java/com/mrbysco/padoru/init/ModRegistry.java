@@ -3,7 +3,6 @@ package com.mrbysco.padoru.init;
 import com.mrbysco.padoru.PadoruMod;
 import com.mrbysco.padoru.entity.Padoru;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -29,13 +28,13 @@ public class ModRegistry {
 	);
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_SPAWN = SOUND_EVENTS.register("padoru.spawn", () ->
-			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.spawn")));
+			SoundEvent.createVariableRangeEvent(PadoruMod.modLoc("padoru.spawn")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_AMBIENT = SOUND_EVENTS.register("padoru.ambient", () ->
-			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.ambient")));
+			SoundEvent.createVariableRangeEvent(PadoruMod.modLoc("padoru.ambient")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_DEATH = SOUND_EVENTS.register("padoru.death", () ->
-			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.death")));
+			SoundEvent.createVariableRangeEvent(PadoruMod.modLoc("padoru.death")));
 	public static final DeferredHolder<SoundEvent, SoundEvent> PADORU_HURT = SOUND_EVENTS.register("padoru.hurt", () ->
-			SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(PadoruMod.MOD_ID, "padoru.hurt")));
+			SoundEvent.createVariableRangeEvent(PadoruMod.modLoc("padoru.hurt")));
 
 	public static final Supplier<Item> PADORU_SPAWN_EGG = ITEMS.registerItem("nero_claudius_spawn_egg", (properties) ->
 			new SpawnEggItem(properties.spawnEgg(PADORU.get())));

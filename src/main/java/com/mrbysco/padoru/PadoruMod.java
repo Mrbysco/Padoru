@@ -3,6 +3,7 @@ package com.mrbysco.padoru;
 import com.mrbysco.padoru.client.ClientHandler;
 import com.mrbysco.padoru.init.ModRegistry;
 import com.mrbysco.padoru.init.ModSpawns;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -36,5 +37,9 @@ public class PadoruMod {
 		if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
 			event.accept(ModRegistry.PADORU_SPAWN_EGG.get());
 		}
+	}
+
+	public static Identifier modLoc(String path) {
+		return Identifier.fromNamespaceAndPath(MOD_ID, path);
 	}
 }
