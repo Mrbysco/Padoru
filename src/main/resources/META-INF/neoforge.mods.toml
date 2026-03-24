@@ -19,12 +19,12 @@ PADORU PADORU
 [[dependencies.padoru]]
 modId="minecraft"
 type="REQUIRED"
-versionRange="[1.21.9,1.22)"
+versionRange="[26.1,)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.padoru]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[21.9.0-beta,)"
+versionRange="[26.1.0.0-alpha,)"
 ordering="NONE"
 side="BOTH"
